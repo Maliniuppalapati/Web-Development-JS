@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess a Word</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'sans-serif';
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #1bb295;
+    }
+
+    .wrapper {
+      width: 430px;
+      background: #fff;
+
+      border-radius: 10px;
+    }
+
+    .wrapper h1 {
+      font-size: 25px;
+      font-weight: 500;
+      padding: 20px 25px;
+      border-bottom: 1px solid #ccc;
+
+    }
+
+    .wrapper .content {
+      margin: 25px 25px 35px;
+    }
+
+    .content .typing-input {
+      z-index: -999;
+      position: absolute;
+      opacity: 0;
+
+
+    }
+
+    .content .inputs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+    }
+
+    .inputs .input {
+      height: 57px;
+      width: 56px;
+      margin: 4px;
+      font-size: 24px;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-align: center;
+      color: #1bb295;
+      background: none;
+      border-radius: 5px;
+      border: 1px solid #b5b5b5;
+    }
+
+    .inputs .input:first-child {
+      margin-left: 0px;
+
+
+    }
+
+    .content .details {
+      margin: 20px 0 25px;
+
+    }
+
+    .details p {
+      font-size: 19px;
+      margin-bottom: 10px;
+
+    }
+
+    .content .reset-button {
+      width: 100%;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      background: #1bb295;
+      border-radius: 5px;
+      font-size: 17px;
+      padding: 15px 0;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Guess The Word</h1>
+    <div class="content">
+      <input type="text" class="typing-input" maxlength="1">
+      <div class="inputs">
+
+      </div>
+      <div class="details">
+        <p class="hint">Hint: <span></span></p>
+        <p class="guess-left">Remaining Guesses: <span></span></p>
+        <p class="wrong-letter">Wrong letters: <span></span></p>
+      </div>
+      <button class="reset-button">Reset Game</button>
+    </div>
+
+  </div>
+
+</body>
+<script>
+  const wordList = [
+    {
+      word: "python",
+      hint: "programming language"
+    },
+    {
+      word: "guitar",
+      hint: "a musical instrument"
+    },
+    {
+      word: "aim",
+      hint: "a purpose or intention"
+    },
+    {
+      word: "venus",
+      hint: "planet of our solar system"
+    },
+    {
+      word: "gold",
+      hint: "a yellow precious metal"
+    },
+
+
+    {
+      word: "coding",
+      hint: "related to programming"
+    },
+    {
+      word: "matrix",
+      hint: "science fiction movie"
+    },
+    {
+      word: "bugs",
+      hint: "related to programming"
+    },
+    {
+      word: "avatar",
+      hint: "epic science fiction film"
+    },
+    {
+      word: "gif",
+      hint: "a file format for image"
+    },
+
+    {
+      word: "map",
+      hint: "diagram represent of an area"
+    },
+    {
+      word: "island",
+      hint: "land surrounded by water"
+    },
+    {
+      word: "hockey",
+      hint: "a famous outdoor game"
+    },
+    {
+      word: "chess",
+      hint: "related to an indoor game"
+    },
+
+    {
+      word: "github",
+      hint: "code hosting platform"
+    },
+
+    {
+      word: "silver",
+      hint: "precious greyish-white metal"
+    },
+    {
+      word: "mobile",
+      hint: "an electronic device"
+    },
+
+    {
+      word: "java",
+      hint: "programming language"
+    },
+    {
+      word: "google",
+      hint: "famous search engine"
+    },
+
+    {
+      word: "excel",
+      hint: "microsoft product for windows"
+    },
+    {
+      word: "mysql",
+      hint: "a relational database system"
+    },
+    {
+      word: "nepal",
+      hint: "developing country name"
+    },
+    {
+      word: "flute",
+      hint: "a musical instrument"
+    },
+    {
+      word: "crypto",
+      hint: "related to cryptocurrency"
+    },
+    {
+      word: "tesla",
+      hint: "unit of magnetic flux density"
+    },
+    {
+      word: "mars",
+      hint: "planet of our solar system"
+    },
+
+    {
+      word: "email",
+      hint: "related to exchanging message"
+    },
+    {
+      word: "html",
+      hint: "markup language for the web"
+    },
+    {
+      word: "air",
+      hint: "related to a gas"
+    },
+    {
+      word: "idea",
+      hint: "a thought or suggestion"
+    },
+    {
+      word: "server",
+      hint: "related to computer or system"
+    },
+
+    {
+      word: "search",
+      hint: "act to find something"
+    },
+
+    {
+      word: "egypt",
+      hint: "a country name"
+    },
+
+    {
+      word: "dubai",
+      hint: "developed country name"
+    },
+    {
+      word: "photo",
+      hint: "representation of person or scene"
+    },
+    {
+      word: "nile",
+      hint: "largest river in the world"
+    },
+    {
+      word: "rain",
+      hint: "related to a water"
+    },
+  ]
+  const inputs = document.querySelector(".inputs");
+  resetbutton = document.querySelector(".reset-button");
+  hint = document.querySelector(".hint span");
+  guessesleft = document.querySelector(".guess-left span")
+  wrongletter = document.querySelector(".wrong-letter span");
+  typinginput = document.querySelector(".typing-input");
+
+  let word, maxguesses, corrects = [], incorrects = [];
+
+  function randomWord() {
+    let ranObj = wordList[Math.floor(Math.random() * wordList.length)];
+    word = ranObj.word;
+    maxguesses = 8; corrects = []; incorrects = [];
+
+
+    hint.innerText = ranObj.hint;
+    guessesleft.innerText = maxguesses;
+    wrongletter.innerText = incorrects;
+    let html = "";
+    for (let i = 0; i < word.length; i++) {
+      html += '<input type="text" class="input" disabled> ';
+    }
+    inputs.innerHTML = html;
+
+  }
+  randomWord();
+  function initGame(e) {
+    let key = e.target.value;
+    if (key.match(/^[A-Za-z]+$/) && !incorrects.includes(' ${key}') && !corrects.includes(' ${key}')) {
+
+      if (word.includes(key)) {
+
+        for (let i = 0; i < word.length; i++) {
+          if (word[i] === key) {
+            corrects.push(key);
+            inputs.querySelectorAll("input")[i].value = key;
+
+          }
+        }
+      }
+      else {
+        maxguesses--;
+        incorrects.push(key);
+
+      }
+
+      guessesleft.innerText = maxguesses;
+      wrongletter.innerText = incorrects;
+    }
+    typinginput.value = "";
+
+    if (corrects.length === word.length) {
+      alert(`Congrats, you found the word ${ word.toUpperCase() }!`);
+
+      randomWord();
+
+    }
+    else if (maxguesses < 1) {
+      alert("Game over,you don't have remaining guesses!!");
+      for (let i = 0; i < word.length; i++) {
+        inputs.querySelectorAll("input")[i].value = word[i];
+      }
+    }
+
+  }
+  resetbutton.addEventListener("click", randomWord);
+  document.addEventListener("input", initGame);
+
+  document.addEventListener("keydown", () => typinginput.focus());
+  inputs.addEventListener("click", (e) => {
+    if (e.target.classList.contains("input")) {
+      typingInput.focus();
+    }
+  });
+</script>
+
+</html>
