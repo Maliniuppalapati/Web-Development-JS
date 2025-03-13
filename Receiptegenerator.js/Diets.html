@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthy Diet Plans</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      background: linear-gradient(to right, #f9f9f9, #d4fc79, #96e6a1);
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      backdrop-filter: blur(10px);
+      overflow-y: auto;
+      max-height: 90vh;
+      margin-top: 20px;
+    }
+
+    h1,
+    h2 {
+      font-weight: 600;
+      color: #2d3436;
+    }
+
+    .diet-plan,
+    .age-group,
+    .disease-specific {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .plan {
+      padding: 20px;
+      border-radius: 12px;
+      width: 45%;
+      margin: 10px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: 0.3s ease-in-out;
+    }
+
+    .plan:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .plan h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .plan p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    /* Soft Gradient Backgrounds */
+    .age-group .plan {
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      color: #2d3436;
+    }
+
+    .disease-specific .plan {
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      color: #2d3436;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🌿 Healthy Diet Plans 🌿</h1>
+
+    <h2>🥦 Age Group Diet Plans</h2>
+    <div class="age-group">
+      <div class="plan">
+        <h3>Kids (Under 12)</h3>
+        <p>Balanced meals with proteins, dairy, and fruits.</p>
+      </div>
+      <div class="plan">
+        <h3>Teenagers (13-18)</h3>
+        <p>Energy-packed diet with proteins and healthy fats.</p>
+      </div>
+      <div class="plan">
+        <h3>Adults (19-50)</h3>
+        <p>Whole foods, lean proteins, and heart-healthy fats.</p>
+      </div>
+      <div class="plan">
+        <h3>Seniors (50+)</h3>
+        <p>Calcium-rich foods and anti-inflammatory nutrients.</p>
+      </div>
+    </div>
+
+    <h2>💙 Disease-Specific Diet Plans</h2>
+    <div class="disease-specific">
+      <div class="plan">
+        <h3>Diabetes</h3>
+        <p>Low-glycemic foods like whole grains and greens.</p>
+      </div>
+      <div class="plan">
+        <h3>Heart Disease</h3>
+        <p>Omega-3 rich foods like salmon, nuts, and seeds.</p>
+      </div>
+      <div class="plan">
+        <h3>Hypertension</h3>
+        <p>Low-sodium, high-potassium diet for better BP control.</p>
+      </div>
+      <div class="plan">
+        <h3>Obesity</h3>
+        <p>High-fiber, low-calorie meals with lean proteins.</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

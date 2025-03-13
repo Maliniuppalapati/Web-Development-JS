@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dish Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    input,
+    button {
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Find a Dish by Ingredients</h2>
+  <input type="text" id="ingredients" placeholder="Enter ingredients (comma-separated)">
+  <button onclick="findDish()">Search Dish</button>
+  <h3 id="output"></h3>
+
+  <script>
+    const dishData = {
+      "Rice, Chicken, Onions, Spices": "Chicken Biryani",
+      "Flour, Water, Salt, Oil": "Roti",
+      "Potatoes, Onions, Tomatoes, Spices": "Aloo Gobi",
+      "Lentils, Onion, Tomato, Garlic": "Dal Tadka",
+      "Paneer, Tomatoes, Onions, Spices": "Paneer Butter Masala",
+      "Rice, Coconut, Milk, Jaggery": "Coconut Rice or Coconut Payasam",
+      "Semolina, Ghee, Sugar, Water": "Suji Halwa (Sheera)",
+      "Chickpeas, Tomatoes, Onions, Spices": "Chole (Chickpea Curry)",
+      "Tomatoes, Garlic, Onion, Spices": "Tomato Soup",
+      "Flour, Ghee, Sugar, Cardamom": "Gulab Jamun",
+      "Flour, Ghee, Sugar, Water": "Jalebi",
+      "Potatoes, Chickpeas, Yogurt, Tamarind": "Aloo Tikki Chaat",
+      "Rice, Moong Dal, Turmeric, Salt": "Khichdi",
+      "Eggplant, Tomato, Onion, Spices": "Baingan Bharta",
+      "Rice, Chicken, Yogurt, Mint": "Chicken Pulao",
+      "Paneer, Spinach, Garlic, Spices": "Palak Paneer",
+      "Rice, Green Peas, Spices": "Peas Pulao",
+      "Flour, Potato, Onion, Spices": "Samosa",
+      "Rice, Tomatoes, Cumin, Coriander": "Tomato Rice",
+      "Cucumber, Tomato, Onion, Lemon": "Cucumber Salad (Kachumber)"
+    };
+
+    function findDish() {
+      let input = document.getElementById("ingredients").value.trim();
+      let output = "No matching dish found!";
+
+      for (let key in dishData) {
+        let keyIngredients = key.toLowerCase().split(", ").sort().join(", ");
+        let inputIngredients = input.toLowerCase().split(", ").sort().join(", ");
+
+        if (keyIngredients === inputIngredients) {
+          output = `Dish Found: ${dishData[key]}`;
+          break;
+        }
+      }
+
+      document.getElementById("output").innerText = output;
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Assistant</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-image: linear-gradient(45deg, #ff7e5f, #feb47b);
+            overflow: hidden;
+            /* Prevent unnecessary scrolling on body */
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            /* Reduced padding */
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow-y: auto;
+            /* Allow vertical scroll if necessary */
+            max-height: 90vh;
+            margin-top: 20px;
+            /* Adjusted margin */
+        }
+
+        h1 {
+            color: #ff7e5f;
+            font-size: 2.2rem;
+            /* Reduced font size */
+            margin-bottom: 15px;
+            /* Reduced bottom margin */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        input,
+        button {
+            width: 80%;
+            padding: 10px;
+            /* Reduced padding */
+            margin: 12px 0;
+            /* Reduced margin */
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        input {
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff7e5f;
+        }
+
+        button {
+            background-color: #ff7e5f;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #feb47b;
+        }
+
+        button:active {
+            background-color: #ff5733;
+        }
+
+        #result,
+        #diet {
+            margin-top: 15px;
+            /* Reduced margin */
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 30px;
+            /* Reduced margin */
+            color: #333;
+            font-size: 1.6rem;
+            /* Reduced font size */
+        }
+
+        .tips ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips li {
+            font-size: 1rem;
+            /* Reduced font size */
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            /* Reduced margin */
+        }
+
+        .tips li::before {
+            content: "\2022";
+            color: #ff7e5f;
+            font-size: 1.5rem;
+            /* Reduced size */
+            margin-right: 12px;
+            /* Reduced margin */
+        }
+
+        .tips {
+            margin-top: 15px;
+            /* Reduced margin */
+            text-align: left;
+            padding-left: 15px;
+            /* Reduced padding */
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 8px;
+            /* Reduced padding */
+            border-left: 5px solid #ff7e5f;
+        }
+
+        .tips h2 {
+            margin-top: 0;
+            color: #ff7e5f;
+            font-size: 1.4rem;
+            /* Reduced font size */
+            font-weight: 600;
+        }
+
+        .tips .tip-icon {
+            color: #ff7e5f;
+            margin-right: 12px;
+            /* Reduced margin */
+            font-size: 1.3rem;
+            /* Reduced size */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Food Assistant</h1>
+        <input type="text" id="ingredientsInput" placeholder="Enter Ingredients..." onkeyup="searchFood()">
+        <button onclick="searchIngredients()">Search Dish</button>
+        <input type="text" id="dishInput" placeholder="Enter Dish..." onkeyup="searchFood()">
+        <button onclick="searchDish()">Search Ingredients</button>
+        <p id="result"></p>
+        <h2>Healthy Diet Plans</h2>
+        <button onclick="window.location.href='Diets.html'">View Diet Plans</button>
+
+        <p id="diet"></p>
+        <div class="tips">
+            <h2>Food Waste Reduction Tips</h2>
+            <ul>
+                <li><span class="tip-icon">&#x1F4DD;</span>Plan meals ahead to avoid excess food.</li>
+                <li><span class="tip-icon">&#x1F4E6;</span>Store food properly to extend freshness.</li>
+                <li><span class="tip-icon">&#x1F4A1;</span>Use leftovers creatively in new dishes.</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+         function searchIngredients() {
+                let ingredientsInput = document.getElementById("ingredientsInput").value.trim().toLowerCase();
+                let result = document.getElementById("result");
+
+                let foodDatabase = {
+                    "tomato, onion, garlic":  "Soup",
+                    "chicken, onion, tomato, spices, garlic": "  Chicken Curry",
+                    "lettuce, tomato, cucumber, olive oil, salt": "  Salad"
+                };
+
+                let found = false;
+                let inputArray = ingredientsInput.split(",").map(item => item.trim());
+
+                for (let key in foodDatabase) {
+                    let keyArray = key.split(",").map(item => item.trim());
+
+                    if (inputArray.every(ing => keyArray.includes(ing))) {
+                        result.innerHTML = foodDatabase[key];
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    result.innerHTML = "No matching results found.";
+                }
+            }
+
+
+        function searchDish() {
+                let dishInput = document.getElementById("dishInput").value.trim().toLowerCase();
+                let result = document.getElementById("result");
+
+                let foodDatabase = {
+                    "tomato, onion, garlic": "soup",
+                    "chicken, onion, tomato, spices, garlic": "chicken curry",
+                    "lettuce, tomato, cucumber, olive oil, salt": "salad"
+                };
+
+                let found = false;
+
+                // Iterate over the database to find the matching dish
+                for (let ingredients in foodDatabase) {
+                    if (foodDatabase[ingredients] === dishInput.toLowerCase()) {
+                        result.innerHTML = `Ingredients for ${dishInput.charAt(0).toUpperCase() + dishInput.slice(1)}: ${ingredients}`;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    result.innerHTML = "No matching results found.";
+                }
+            }
+
+    </script>
+</body>
+
+</html>
